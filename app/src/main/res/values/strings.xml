@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Login</string>
+    <string name="loginMsg">SIGN IN</string>
 </resources>
