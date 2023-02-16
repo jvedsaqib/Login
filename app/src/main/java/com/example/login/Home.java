@@ -8,13 +8,15 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Home extends AppCompatActivity {
 
     // buttons
-    Button signOut;
+    Button signOut, showData;
+    FloatingActionButton fab;
 
     // Firebase
     FirebaseAuth mAuth;
@@ -28,6 +30,8 @@ public class Home extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         signOut = findViewById(R.id.signOut);
+        showData = findViewById(R.id.showData);
+        fab = findViewById(R.id.fab);
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,6 +40,13 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        fab.setOnClickListener(view -> {
+            startActivity(new Intent(Home.this, AddActivity.class));
+        });
+
+        showData.setOnClickListener(view -> {
+            startActivity(new Intent(Home.this, ShowRecords.class));
+        });
     }
 
     @Override

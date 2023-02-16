@@ -22,4 +22,27 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-90dp"
         />
+
+    <Button
+        android:id="@+id/showData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Data"
+
+        android:layout_alignBottom="@id/signOut"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-90dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/add"
+        android:layout_alignBottom="@id/signOut"
+        android:layout_marginBottom="-120dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+
+        />
 </RelativeLayout>
