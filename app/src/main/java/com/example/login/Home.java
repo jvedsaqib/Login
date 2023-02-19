@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,12 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Home extends AppCompatActivity {
 
     // buttons
-    Button signOut, showData;
+    Button signOut, showData, chat;
     FloatingActionButton fab;
+
+    // TextView
+    TextView tvUser;
 
     // Firebase
     FirebaseAuth mAuth;
@@ -27,10 +32,13 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.home);
         getSupportActionBar().hide();
 
+        tvUser = findViewById(R.id.tvUser);
+
         mAuth = FirebaseAuth.getInstance();
 
         signOut = findViewById(R.id.signOut);
         showData = findViewById(R.id.showData);
+        chat = findViewById(R.id.chat);
         fab = findViewById(R.id.fab);
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +54,10 @@ public class Home extends AppCompatActivity {
 
         showData.setOnClickListener(view -> {
             startActivity(new Intent(Home.this, ShowRecords.class));
+        });
+
+        chat.setOnClickListener(view ->{
+            startActivity(new Intent(Home.this, Chat.class));
         });
     }
 

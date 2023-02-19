@@ -1,9 +1,11 @@
 package com.example.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -12,7 +14,11 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Chat extends AppCompatActivity {
 
@@ -24,6 +30,8 @@ public class Chat extends AppCompatActivity {
 
     // Firebase
     FirebaseListAdapter<ChatMessage> adapter;
+
+    userInfo ob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +46,7 @@ public class Chat extends AppCompatActivity {
             inputMsg = findViewById(R.id.inputMsg);
 
             FirebaseDatabase.getInstance().getReference().child("Chat").push().setValue(
-                    new ChatMessage(inputMsg.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getDisplayName())
+                    new ChatMessage(inputMsg.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail())
             );
 
             inputMsg.setText("");
@@ -59,7 +67,9 @@ public class Chat extends AppCompatActivity {
 
                 // Set their text
                 tvMessage.setText(model.getMessageText());
+
                 tvUsername.setText(model.getMessageUser());
+
                 // Format the date before showing it
                 tvTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
                         model.getMessageTime()));
