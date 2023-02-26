@@ -6,13 +6,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
 
@@ -68,6 +72,19 @@ public class Home extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if(user == null){
             startActivity(new Intent(Home.this, MainActivity.class));
+        } else{
+
+            FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/user").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    tvUser.setText(snapshot.getValue().toString());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
     }

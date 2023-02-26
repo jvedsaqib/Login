@@ -46,8 +46,8 @@ public class Chat extends AppCompatActivity {
             inputMsg = findViewById(R.id.inputMsg);
 
             FirebaseDatabase.getInstance().getReference().child("Chat").push().setValue(
-                    new ChatMessage(inputMsg.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail())
-            );
+                    new ChatMessage(inputMsg.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail(), FirebaseAuth.getInstance().getCurrentUser().getUid()
+                    ));
 
             inputMsg.setText("");
         });
@@ -65,10 +65,20 @@ public class Chat extends AppCompatActivity {
                 TextView tvMessage = v.findViewById(R.id.tvMessage);
                 TextView tvTime = v.findViewById(R.id.tvTime);
 
+                FirebaseDatabase.getInstance().getReference("users/"+model.getMessageUserUid()+"/user").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        tvUsername.setText(snapshot.getValue().toString());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 // Set their text
                 tvMessage.setText(model.getMessageText());
-
-                tvUsername.setText(model.getMessageUser());
 
                 // Format the date before showing it
                 tvTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
