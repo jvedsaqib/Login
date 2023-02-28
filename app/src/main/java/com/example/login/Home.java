@@ -57,7 +57,7 @@ public class Home extends AppCompatActivity {
         });
 
         showData.setOnClickListener(view -> {
-            startActivity(new Intent(Home.this, ShowRecords.class));
+            startActivity(new Intent(Home.this, Search.class));
         });
 
         chat.setOnClickListener(view ->{
