@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Home extends AppCompatActivity {
 
     // buttons
-    Button signOut, showData, chat;
+    Button signOut, showData, chat, addBook;
     FloatingActionButton fab;
 
     // TextView
@@ -43,6 +43,7 @@ public class Home extends AppCompatActivity {
         signOut = findViewById(R.id.signOut);
         showData = findViewById(R.id.showData);
         chat = findViewById(R.id.chat);
+        addBook = findViewById(R.id.addBook);
         fab = findViewById(R.id.fab);
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,10 @@ public class Home extends AppCompatActivity {
 
         chat.setOnClickListener(view ->{
             startActivity(new Intent(Home.this, Chat.class));
+        });
+
+        addBook.setOnClickListener(view -> {
+            startActivity(new Intent(Home.this, UploadData.class));
         });
     }
 
