@@ -1,6 +1,7 @@
 package com.example.login;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,9 @@ public class GVAdapter extends ArrayAdapter<GridSearch> {
 
         tvTitleGrid.setText(dataModal.getTitle());
 
-        Picasso.get().load(dataModal.getImgUrl()).into(gridImg);
+        Log.d("imgUrl", dataModal.getImgUrl());
+
+        Picasso.get().load(dataModal.getImgUrl().toString()).into(gridImg);
 
         listitemView.setOnClickListener(new View.OnClickListener() {
             @Override

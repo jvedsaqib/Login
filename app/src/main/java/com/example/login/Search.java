@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,8 +31,6 @@ public class Search extends AppCompatActivity {
     GridView gridView;
     ArrayList<GridSearch> dataList;
 
-    FirebaseFirestore db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,44 +42,40 @@ public class Search extends AppCompatActivity {
 
         dataList = new ArrayList<>();
 
-        db = FirebaseFirestore.getInstance();
-
         loadDatainGridView();
 
     }
 
     private void loadDatainGridView() {
 
-        db.collection("Data").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                        if (!queryDocumentSnapshots.isEmpty()) {
-
-                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                            for (DocumentSnapshot d : list) {
+        FirebaseDatabase.getInstance().getReference("bookData").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                String title = "";
+                String imgUrl = "";
+                String price = "";
 
 
-                                GridSearch dataModal = d.toObject(GridSearch.class);
+                for (DataSnapshot i : dataSnapshot.getChildren()) {
+                    //Log.d("Iterating", i.getKey());
+                    for (DataSnapshot iChild : i.getChildren()) {
 
+                        //Log.d("IteratingChild", iChild.getKey());
+                        Log.d("ChildKeyValue", iChild.child("title").getValue().toString());
+                        Log.d("ChildKeyValue", iChild.child("uid").getValue().toString());
+                        Log.d("ChildKeyValue", iChild.child("imgUrl").getValue().toString());
 
-                                dataList.add(dataModal);
-                            }
-
-                            GVAdapter adapter = new GVAdapter(Search.this, dataList);
-
-
-                            gridView.setAdapter(adapter);
-                        } else {
-                            Toast.makeText(Search.this, "No data found in Database", Toast.LENGTH_SHORT).show();
-                        }
+                        dataList.add(new GridSearch(iChild.child("title").getValue().toString(),
+                                "",
+                                iChild.child("imgUrl").getValue().toString()));
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Search.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
+
+                GVAdapter adapter = new GVAdapter(Search.this, dataList);
+                gridView.setAdapter(adapter);
+            }
+        });
+
     }
+
 }

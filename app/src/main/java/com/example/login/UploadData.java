@@ -7,16 +7,19 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -32,15 +35,18 @@ class UploadDataUserDetails{
     private String publisherName;
     private String description;
 
+    private String imgUrl;
+
     public UploadDataUserDetails() {
     }
 
-    public UploadDataUserDetails(String uid, String title, String authorName, String publisherName, String description) {
+    public UploadDataUserDetails(String uid, String title, String authorName, String publisherName, String description, String imgUrl) {
         this.uid = uid;
         this.title = title;
         this.authorName = authorName;
         this.publisherName = publisherName;
         this.description = description;
+        this.imgUrl = imgUrl;
     }
 
     public String getUid() {
@@ -81,6 +87,14 @@ class UploadDataUserDetails{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
 public class UploadData extends AppCompatActivity {
@@ -160,20 +174,31 @@ public class UploadData extends AppCompatActivity {
 
     private void uploadData() {
 
-        ob = new UploadDataUserDetails(FirebaseAuth.getInstance().getCurrentUser().getUid().toString(), etTitle.getText().toString(), etAuthorName.getText().toString(), etPublisherName.getText().toString(), etDescription.getText().toString());
-
+        ob = new UploadDataUserDetails(FirebaseAuth.getInstance().getCurrentUser().getUid().toString(),
+                etTitle.getText().toString(), etAuthorName.getText().toString(), etPublisherName.getText().toString(),
+                etDescription.getText().toString(), "");
         if(filePath != null){
             ProgressDialog pd = new ProgressDialog(this);
             pd.setTitle("Uploading Data");
             pd.show();
 
-            FirebaseDatabase.getInstance().getReference("bookData").child(ob.getUid()).child(ob.getTitle()).setValue(ob);
+
 
             StorageReference ref = storageDbRef.child("bookImage/" + UUID.randomUUID().toString());
 
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    Task<Uri> dwnldUrl = ref.getDownloadUrl();
+
+                    dwnldUrl.addOnSuccessListener(uri -> {
+                        Log.d("Image Url", uri.toString());
+                        FirebaseDatabase.getInstance().getReference("bookData").child(ob.getUid()+"/"+ob.getTitle()+"/imgUrl").setValue(uri.toString());
+
+                    });
+
+                    FirebaseDatabase.getInstance().getReference("bookData").child(ob.getUid()).child(ob.getTitle()).setValue(ob);
                     pd.dismiss();
                     Toast.makeText(UploadData.this, "Upload Done!", Toast.LENGTH_SHORT).show();
                 }
