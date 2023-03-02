@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Search">
 
+    <Button
+        android:id="@+id/btnProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="profile"
+
+        android:layout_alignParentEnd="true"
+
+
+        />
+
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
@@ -13,6 +25,7 @@
 
         android:numColumns="2"
 
+        android:layout_below="@id/btnProfile"
         android:horizontalSpacing="6dp"
         android:verticalSpacing="6dp"
         />

@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import java.util.List;
 
 public class Search extends AppCompatActivity {
 
+    Button btnProfile;
     GridView gridView;
     ArrayList<GridSearch> dataList;
 
@@ -39,6 +42,12 @@ public class Search extends AppCompatActivity {
         getSupportActionBar().hide();
 
         gridView = findViewById(R.id.gridView);
+
+        btnProfile = findViewById(R.id.btnProfile);
+
+        btnProfile.setOnClickListener(view -> {
+            startActivity(new Intent(Search.this, Home.class));
+        });
 
         dataList = new ArrayList<>();
 
