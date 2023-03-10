@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     EditText emailTF, passwordTF;
 
     // Button
-    Button signIn, createAccountBtn;
+    Button signIn, createAccountBtn, skip_signin_btn;
 
     // Firebase
     FirebaseAuth mAuth;
@@ -65,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(view -> {
             signin();
         });
+
+        skip_signin_btn = findViewById(R.id.skip_signin_btn);
+
+        skip_signin_btn.setOnClickListener(view -> {
+
+        });
+
     }
 
     public void onBackPressed(){

@@ -7,6 +7,18 @@
     tools:context=".MainActivity"
     >
 
+    <Button
+        android:id="@+id/skip_signin_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+
+        android:text="skip"
+
+        />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
