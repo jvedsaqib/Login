@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         skip_signin_btn = findViewById(R.id.skip_signin_btn);
 
         skip_signin_btn.setOnClickListener(view -> {
-
+            startActivity(new Intent(MainActivity.this, Search.class));
         });
 
     }
