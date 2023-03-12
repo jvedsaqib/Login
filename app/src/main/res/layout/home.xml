@@ -8,18 +8,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User"
-        android:layout_above="@id/textView"
-        android:layout_centerHorizontal="true"
         android:textSize="30dp"
+
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="170dp"
         />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="YOU ARE LOGGED IN"
-        android:layout_centerInParent="true"
         android:textSize="30dp"
+
+        android:layout_marginTop="220dp"
         />
 
     <Button
