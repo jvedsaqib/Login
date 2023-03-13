@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/tvUser"
@@ -32,8 +33,9 @@
         android:layout_height="wrap_content"
         android:text="sign Out"
 
-        android:layout_alignBottom="@id/textView"
-        android:layout_centerHorizontal="true"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="-90dp"
         />
 
@@ -43,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="Show Data"
 
-        android:layout_alignBottom="@id/signOut"
+        android:layout_alignBottom="@id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-90dp"
         />
@@ -75,10 +77,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foreground="@drawable/add"
-        android:layout_alignBottom="@id/signOut"
+        android:layout_alignBottom="@id/addBook"
         android:layout_marginBottom="-120dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
+
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/user_profile"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+
+        app:backgroundTint="@color/browser_actions_bg_grey"
 
         />
 </RelativeLayout>
