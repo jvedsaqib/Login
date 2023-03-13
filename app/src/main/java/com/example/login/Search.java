@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +31,7 @@ import java.util.List;
 
 public class Search extends AppCompatActivity {
 
-    Button btnProfile;
+    FloatingActionButton btnProfile;
     GridView gridView;
     ArrayList<GridSearch> dataList;
 
